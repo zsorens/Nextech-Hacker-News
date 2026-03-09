@@ -1,0 +1,90 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    // ─── .NET Build ──────────────────────────────────────────────────────────
+    {
+      "label": "build: .NET API",
+      "type": "shell",
+      "command": "dotnet build",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+      "group": "build",
+      "problemMatcher": "$msCompile",
+      "presentation": {
+        "label": ".NET Build",
+        "reveal": "silent",
+        "panel": "dedicated"
+      }
+    },
+    // ─── .NET API ────────────────────────────────────────────────────────────
+    {
+      "label": "Start .NET API",
+      "type": "shell",
+      "command": "dotnet run --launch-profile http",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "dotnet",
+        "pattern": {
+          "regexp": "^(.*)$",
+          "message": 1
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "Building\\.\\.\\.",
+          "endsPattern": "Now listening on:"
+        }
+      },
+      "group": "build",
+      "presentation": {
+        "label": ".NET API",
+        "group": "dev-servers",
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    // ─── Angular Dev Server ──────────────────────────────────────────────────
+    {
+      "label": "Start Angular",
+      "type": "shell",
+      "command": "npm start",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend/Hacker-News-App"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "typescript",
+        "pattern": "$tsc",
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "Building\\.\\.\\.",
+          "endsPattern": "bundle generation complete"
+        }
+      },
+      "group": "build",
+      "presentation": {
+        "label": "Angular",
+        "group": "dev-servers",
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    // ─── Compound: start both ─────────────────────────────────────────────────
+    {
+      "label": "Start All (API + Angular)",
+      "dependsOn": ["Start .NET API", "Start Angular"],
+      "dependsOrder": "parallel",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    }
+  ]
+}

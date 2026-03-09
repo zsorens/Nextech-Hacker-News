@@ -1,17 +1,34 @@
+using Backend.Extensions;
+using Backend.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
+builder.Services.AddMemoryCache();
+builder.Services.AddScoped<HackerNewsService>();
+builder.AddHackerNewsClient(); // this shows how you could use extension method for registering client
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+        "AllowAngularDev",
+        policy =>
+        {
+            policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+        }
+    );
+});
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
 
 app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAngularDev");
+
+app.MapControllers();
 
 app.Run();

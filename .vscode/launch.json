@@ -1,0 +1,45 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    // ─── .NET API (C# debugger) ───────────────────────────────────────────────
+    {
+      "name": ".NET API",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build: .NET API",
+      "program": "${workspaceFolder}/backend/bin/Debug/net8.0/backend.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/backend",
+      "stopAtEntry": false,
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://localhost:5200"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/backend"
+      }
+    },
+    // ─── Angular (Chrome) ─────────────────────────────────────────────────────
+    {
+      "name": "Angular (Chrome)",
+      "type": "chrome",
+      "request": "launch",
+      "preLaunchTask": "Start Angular",
+      "url": "http://localhost:4200/",
+      "webRoot": "${workspaceFolder}/frontend/Hacker-News-App/src"
+    }
+  ],
+  // ─── Compound: debug both at once ────────────────────────────────────────────
+  "compounds": [
+    {
+      "name": "Full Stack (API + Angular)",
+      "configurations": [".NET API", "Angular (Chrome)"],
+      "stopAll": true,
+      "presentation": {
+        "hidden": false,
+        "group": "",
+        "order": 1
+      }
+    }
+  ]
+}
