@@ -16,7 +16,7 @@
     <ol class="story-list">
       @for (story of stories(); track story.id) {
         <li class="story">
-          <a [href]="story.url || 'https://news.ycombinator.com/item?id=' + story.id" target="_blank" rel="noopener">
+          <a [href]="story.url || 'https://news.ycombinator.com/item?id=' + story.id" target="_blank" rel="noopener"> <!--open the default story if no url exists per requirements-->
             {{ story.title }}
           </a>
           <span class="meta">{{ (story?.time ?? 0) * 1000 | date:'medium' }}</span>
