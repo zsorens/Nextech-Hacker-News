@@ -5,7 +5,7 @@ using Microsoft.Extensions.Caching.Memory;
 namespace Backend.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/hacker-news")]
 public class HackerNewsController : ControllerBase
 {
     private readonly HackerNewsService _service;
