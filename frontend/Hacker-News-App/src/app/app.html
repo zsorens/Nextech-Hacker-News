@@ -1,34 +1,35 @@
 <router-outlet />
 
 <main class="container">
-  <h1>Hacker News App - Challenge</h1>
+  <header class="site-header">
+    <span class="logo-mark">Zane's</span>
+    <h1>Hacker News</h1>
+  </header>
 
   @if (loading()) {
-    <p>Loading stories…</p>
+    <p class="status">Loading stories…</p>
   } @else if (error()) {
     <p class="error">{{ error() }}</p>
   } @else {
-  <input class="search" type="text" placeholder="Search stories..." (input)="onSearch($any($event.target).value)" />
-  <div class="pagination">
-    <button (click)="prevPage()" [disabled]="page() === 1">← Prev</button>
-    <span>Page {{ page() }}</span>
-    <button (click)="nextPage()">Next →</button>
-  </div>
-  <ol class="story-list">
-    @for (story of filteredStories(); track story.id) {
-    <li class="story">
-      <a [href]="story.url || 'https://news.ycombinator.com/item?id=' + story.id" target="_blank" rel="noopener">
-        <!--open the default story if no url exists per requirements-->
-        {{ story.title }}
-      </a>
-      <span class="meta">{{ (story?.time ?? 0) * 1000 | date:'medium' }}</span>
-    </li>
-    }
-  </ol>
-  <div class="pagination">
-    <button class="page-button" (click)="prevPage()" [disabled]="page() === 1">← Prev</button>
-    <span>Page {{ page() }}</span>
-    <button class="page-button" (click)="nextPage()">Next →</button>
-  </div>
+    <div class="toolbar">
+      <input class="search" type="text" placeholder="Search stories…" (input)="onSearch($any($event.target).value)" />
+    </div>
+
+    <ol class="story-list">
+      @for (story of filteredStories(); track story.id) {
+        <li class="story">
+          <a [href]="story.url || 'https://news.ycombinator.com/item?id=' + story.id" target="_blank" rel="noopener">
+            {{ story.title }}
+          </a>
+          <span class="meta">{{ (story?.time ?? 0) * 1000 | date:'mediumDate' }}</span>
+        </li>
+      }
+    </ol>
+
+    <div class="pagination">
+      <button (click)="prevPage()" [disabled]="page() === 1">← Prev</button>
+      <span class="page-label">Page {{ page() }}</span>
+      <button (click)="nextPage()">Next →</button>
+    </div>
   }
 </main>

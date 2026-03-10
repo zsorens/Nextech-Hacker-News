@@ -6,6 +6,10 @@ Interview project
 UI: https://agreeable-glacier-00853ff0f.2.azurestaticapps.net/
 API: https://hacker-news-challenge-api.azurewebsites.net (can add swagger/index.html)
 
+## Running Locally
+To run locally, you can use the key bind cmd (cntrl) + shift + b (this will start both applications)
+    - make sure that the configuration file locally is pointed to the correct URL where the API is running locally 
+    - it is defaulted to localhost:5200
 
 
 ## Automated Test
