@@ -16,7 +16,6 @@ public class HackerNewsClientTests
     [Fact]
     public async Task GetItemAsync_ReturnsItem_WhenIdIsValid()
     {
-
         var expected = new HackerNewsItem { Id = 1, Title = "Test Story" };
         _clientMock.Setup(c => c.GetItemAsync(1, default)).ReturnsAsync(expected);
 
