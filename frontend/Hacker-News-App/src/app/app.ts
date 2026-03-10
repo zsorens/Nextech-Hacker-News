@@ -42,11 +42,13 @@ export class App implements OnInit {
   }
 
   nextPage() {
+    this.searchQuery.set('');
     this.page.update(p => p + 1);
     this.loadStories();
   }
 
   prevPage() {
+    this.searchQuery.set('');
     if (this.page() > 1) {
       this.page.update(p => p - 1);
       this.loadStories();
