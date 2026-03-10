@@ -27,6 +27,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# .net obj
-/backend/obj/Debug/net8.0/
-/backend/bin/Debug/net8.0/
+# .NET build output
+**/bin/
+**/obj/
