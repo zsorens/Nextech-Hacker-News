@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 
 
-const API_BASE = 'http://localhost:5200/api/hacker-news';
 
 
 export interface HackerNewsItem {
@@ -34,11 +33,12 @@ export interface HackerNewsPreview {
 
 @Injectable({ providedIn: 'root' })
 export class HackerNewsApiProxy {
+    private readonly apiBase = environment.apiUrl;
     constructor(private http: HttpClient) { }
 
     /** GET /api/HackerNews/item/{id} */
     getItem(id: number): Observable<HackerNewsItem> {
-        return this.http.get<HackerNewsItem>(`${API_BASE}/item/${id}`);
+        return this.http.get<HackerNewsItem>(`${this.apiBase}/item/${id}`);
     }
 
     /** GET /api/HackerNews/new?page=1&count=25 */
@@ -46,6 +46,6 @@ export class HackerNewsApiProxy {
         const params = new HttpParams()
             .set('page', page)
             .set('count', count);
-        return this.http.get<HackerNewsPreview[]>(`${API_BASE}/new`, { params });
+        return this.http.get<HackerNewsPreview[]>(`${this.apiBase}/new`, { params });
     }
 }
