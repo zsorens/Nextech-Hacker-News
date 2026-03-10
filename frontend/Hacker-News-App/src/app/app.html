@@ -8,6 +8,7 @@
   } @else if (error()) {
     <p class="error">{{ error() }}</p>
   } @else {
+    <input class="search" type="text" placeholder="Search stories..." (input)="onSearch($any($event.target).value)" />
     <div class="pagination">
       <button (click)="prevPage()" [disabled]="page() === 1">← Prev</button>
       <span>Page {{ page() }}</span>
@@ -15,12 +16,13 @@
     </div>
     <ol class="story-list">
       @for (story of stories(); track story.id) {
-        <li class="story">
-          <a [href]="story.url || 'https://news.ycombinator.com/item?id=' + story.id" target="_blank" rel="noopener"> <!--open the default story if no url exists per requirements-->
-            {{ story.title }}
-          </a>
-          <span class="meta">{{ (story?.time ?? 0) * 1000 | date:'medium' }}</span>
-        </li>
+      <li class="story">
+        <a [href]="story.url || 'https://news.ycombinator.com/item?id=' + story.id" target="_blank" rel="noopener">
+          <!--open the default story if no url exists per requirements-->
+          {{ story.title }}
+        </a>
+        <span class="meta">{{ (story?.time ?? 0) * 1000 | date:'medium' }}</span>
+      </li>
       }
     </ol>
     <div class="pagination">
@@ -28,5 +30,5 @@
       <span>Page {{ page() }}</span>
       <button class="page-button" (click)="nextPage()">Next →</button>
     </div>
-  }
+    }
 </main>

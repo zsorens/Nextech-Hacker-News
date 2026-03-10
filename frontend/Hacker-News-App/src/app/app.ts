@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, computed, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HackerNewsApiProxy, HackerNewsPreview } from '../proxies/hacker-news-api.proxy';
@@ -14,12 +14,23 @@ export class App implements OnInit {
   loading = signal(true);
   error = signal<string | null>(null);
   page = signal(1);
+  searchQuery = signal('');
   readonly pageSize = 25;
+
+  filteredStories = computed(() => {
+    const query = this.searchQuery().toLowerCase().trim();
+    if (!query) return this.stories();
+    return this.stories().filter(s => s.title?.toLowerCase().includes(query));
+  });
 
   constructor(private api: HackerNewsApiProxy) { }
 
   ngOnInit(): void {
     this.loadStories();
+  }
+
+  onSearch(value: string) {
+    this.searchQuery.set(value);
   }
 
   loadStories() {
