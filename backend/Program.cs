@@ -32,3 +32,5 @@ app.UseCors("AllowAngularDev");
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }

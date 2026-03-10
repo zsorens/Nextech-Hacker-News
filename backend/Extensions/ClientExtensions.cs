@@ -8,7 +8,7 @@ public static class ClientExtensions
 
     public static IServiceCollection AddHackerNewsClient(this WebApplicationBuilder builder)
     {
-        builder.Services.AddHttpClient<HackerNewsClient>(client =>
+        builder.Services.AddHttpClient<IHackerNewsClient, HackerNewsClient>(client =>
         {
             client.BaseAddress = new Uri(BaseAddress);
             client.DefaultRequestHeaders.Add("Accept", "application/json");

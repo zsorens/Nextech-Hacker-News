@@ -6,9 +6,9 @@ namespace Backend.Services
 {
     public class HackerNewsService
     {
-        private readonly HackerNewsClient _client;
+        private readonly IHackerNewsClient _client;
 
-        public HackerNewsService(HackerNewsClient client)
+        public HackerNewsService(IHackerNewsClient client)
         {
             _client = client;
         }

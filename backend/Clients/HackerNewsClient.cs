@@ -4,7 +4,15 @@ using Backend.Models;
 
 namespace Backend.Clients;
 
-public sealed class HackerNewsClient(HttpClient http)
+public interface IHackerNewsClient
+{
+    Task<HackerNewsItem?> GetItemAsync(int id, CancellationToken ct = default);
+    Task<IReadOnlyList<int>> GetTopStoryIdsAsync(CancellationToken ct = default);
+    Task<IReadOnlyList<int>> GetNewStoryIdsAsync(CancellationToken ct = default);
+    Task<IReadOnlyList<int>> GetStoryIdsAsync(string endpoint, CancellationToken ct = default);
+}
+
+public class HackerNewsClient(HttpClient http) : IHackerNewsClient
 {
     public async Task<IReadOnlyList<int>> GetTopStoryIdsAsync(CancellationToken ct = default)
     {
@@ -21,7 +29,7 @@ public sealed class HackerNewsClient(HttpClient http)
         return await http.GetFromJsonAsync<HackerNewsItem>($"item/{id}.json", ct);
     }
 
-    private async Task<IReadOnlyList<int>> GetStoryIdsAsync(string endpoint, CancellationToken ct)
+    public async Task<IReadOnlyList<int>> GetStoryIdsAsync(string endpoint, CancellationToken ct)
     {
         var ids = await http.GetFromJsonAsync<int[]>($"{endpoint}.json", ct);
         return ids ?? [];
