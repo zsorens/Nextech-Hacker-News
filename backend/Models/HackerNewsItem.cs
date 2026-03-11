@@ -1,6 +1,6 @@
 namespace Backend.Models;
 
-public class HackerNewsItem
+public class HackerNewsItem //modeld based on github docs for hacker api
 {
     public int Id { get; init; }
     public bool Deleted { get; init; }
