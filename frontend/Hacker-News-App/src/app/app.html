@@ -21,7 +21,7 @@
           <a [href]="story.url || 'https://news.ycombinator.com/item?id=' + story.id" target="_blank" rel="noopener">
             {{ story.title }}
           </a>
-          <span class="meta">{{ (story?.time ?? 0) * 1000 | date:'mediumDate' }}</span>
+          <span class="meta">{{ (story?.time ?? 0) * 1000 | date:'medium' }}</span>
         </li>
       }
     </ol>
